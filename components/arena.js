@@ -6,7 +6,7 @@ import { ethers } from 'ethers';
 import { CONTRACT_ADDRESS, transformCharacterData } from '../utils/constants';
 import myEpicGame from '../utils/MyEpicGame.json';
 
-const Arena = ({ characterNFT, setCharacterNFT }) => {
+const Arena = ({ characterNFT, setCharacterNFT, currentAccount }) => {
   const [gameContract, setGameContract] = useState(null);
 
   const [boss, setBoss] = useState(null);
@@ -124,9 +124,15 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
 
       {!!characterNFT && (
         <div className=' card border border-white hover:bg-gray-700'>
-          <figure className='max-w-xs'>
-            <img src={characterNFT.imageURI} />
-          </figure>
+          <a
+            href={`https://testnets.opensea.io/${currentAccount}`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <figure className='max-w-xs'>
+              <img src={characterNFT.imageURI} />
+            </figure>
+          </a>
           <div className='card-body space-y-2'>
             <div className='flex space-x-2 items-center max-w-md'>
               <span className=''>

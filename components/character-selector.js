@@ -120,6 +120,14 @@ const CharacterSelector = ({ setCharacterNFT }) => {
   return (
     <div className='space-y-4'>
       <h2 className='text-4xl font-bold'>Mint your character</h2>
+      <ul className='list-disc text-left'>
+        <li>minting will take sometime</li>
+        <li>only one Pokemon allowed for one account</li>
+        <li>
+          you can check the Rinkeby Opensea collection for the character NFT
+          after minting (your Pokemon will have the link to the NFT collection)
+        </li>
+      </ul>
       <div className='space-x-2 flex'>
         {characters.map((character, index) => {
           return (

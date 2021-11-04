@@ -120,6 +120,8 @@ export default function Home() {
     }
   }, [currentAccount]);
 
+  console.log({ currentAccount });
+
   return (
     <>
       <Head>
@@ -158,6 +160,7 @@ export default function Home() {
               <Arena
                 characterNFT={characterNFT}
                 setCharacterNFT={setCharacterNFT}
+                currentAccount={currentAccount}
               />
             )}
           </div>
