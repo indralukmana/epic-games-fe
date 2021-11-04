@@ -85,24 +85,29 @@ export default function Home() {
      * The function we will call that interacts with out smart contract
      */
     const fetchNFTMetadata = async () => {
-      console.log('Checking for Character NFT on address:', currentAccount);
+      try {
+        console.log('Checking for Character NFT on address:', currentAccount);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const gameContract = new ethers.Contract(
-        CONTRACT_ADDRESS,
-        myEpicGame.abi,
-        signer
-      );
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const gameContract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          myEpicGame.abi,
+          signer
+        );
 
-      console.log({ gameContract });
+        console.log({ gameContract });
 
-      const characterNFT = await gameContract.checkIfUserHasNFT();
-      if (characterNFT.name) {
-        console.log('User has character NFT');
-        setCharacterNFT(transformCharacterData(characterNFT));
-      } else {
-        console.log('User has no character NFT');
+        const characterNFT = await gameContract.checkIfUserHasNFT();
+        if (characterNFT.name) {
+          console.log('User has character NFT');
+          setCharacterNFT(transformCharacterData(characterNFT));
+        } else {
+          console.log('User has no character NFT');
+        }
+      } catch (error) {
+        console.log({ error });
+        alert('Please check that you are in Rinkeby test network');
       }
     };
 
@@ -118,27 +123,31 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Epic Pokemon NFT Battle</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className='flex flex-col items-center justify-center min-h-screen py-2'>
         <main className='flex flex-col items-center justify-center w-full flex-1 px-20 text-center'>
-          <h1 className='text-6xl font-bold'>Let's battle</h1>
+          <h1 className='text-6xl font-bold'>Epic Pokemon NFT Battle</h1>
 
-          <div className='container flex mt-5 p-3'>
+          <div className='container flex justify-center mt-5 p-3'>
             {!currentAccount && (
-              <button
-                className={classNames('btn btn-primary', {
-                  loading: isConnectingAccount,
-                })}
-                onClick={() => connectWalletAction()}
-              >
-                {isConnectingAccount
-                  ? 'Connecting'
-                  : !currentAccount
-                  ? 'Connect Wallet'
-                  : 'Connected'}
-              </button>
+              <div className='space-y-5'>
+                <p>⚠️Current this dApp only work in Rinkeby test network⚠️</p>
+                <p>Please use metamask extension for playing</p>
+                <button
+                  className={classNames('btn btn-primary', {
+                    loading: isConnectingAccount,
+                  })}
+                  onClick={() => connectWalletAction()}
+                >
+                  {isConnectingAccount
+                    ? 'Connecting'
+                    : !currentAccount
+                    ? 'Connect Wallet'
+                    : 'Connected'}
+                </button>
+              </div>
             )}
 
             {!!currentAccount && !characterNFT && (
